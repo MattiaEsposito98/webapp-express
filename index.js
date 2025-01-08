@@ -11,19 +11,17 @@ app.use(
   })
 )
 
-
-
+app.use(express.json())
 app.use(express.static('pubblic'))
 
 app.get('/', (req, res) => {
   res.send('Server is running')
 })
 
+
 //Middlewares per errori
 app.use(errorsHandler)
-
 app.use(notFound)
-
 
 
 app.listen(port, () => {
