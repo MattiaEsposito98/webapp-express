@@ -4,6 +4,7 @@ const cors = require('cors')
 const notFound = require("./middlewares/notFound")
 const errorsHandler = require("./middlewares/errorsHandler")
 const port = process.env.PORT || 3000
+const movieRouter = require('./routers/movieRouter')
 
 app.use(
   cors({
@@ -17,6 +18,9 @@ app.use(express.static('pubblic'))
 app.get('/', (req, res) => {
   res.send('Server is running')
 })
+
+//Rotte per movies
+app.use('/api/movies', movieRouter)
 
 
 //Middlewares per errori
