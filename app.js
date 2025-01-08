@@ -12,7 +12,7 @@ app.use(
   })
 )
 
-app.use(express.json())
+app.use(express.json())  //Middleware per analizzare il json
 app.use(express.static('pubblic'))
 
 app.get('/', (req, res) => {
