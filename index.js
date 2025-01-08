@@ -1,6 +1,8 @@
 const express = require("express")
 const app = express()
 const cors = require('cors')
+const notFound = require("./middlewares/notFound")
+const errorsHandler = require("./middlewares/errorsHandler")
 const port = process.env.PORT || 3000
 
 app.use(
@@ -9,11 +11,19 @@ app.use(
   })
 )
 
+
+
 app.use(express.static('pubblic'))
 
 app.get('/', (req, res) => {
   res.send('Server is running')
 })
+
+//Middlewares per errori
+app.use(errorsHandler)
+
+app.use(notFound)
+
 
 
 app.listen(port, () => {
