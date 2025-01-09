@@ -5,10 +5,28 @@ function index(req, res, next) {
 
   connection.query(sql, (err, movies) => {
     if (err) return next(err) // Interviene middlware errorsHandler per gestire l'errore
-
+    // movie.image = `${process.env.BE_HOST}/${movie.image}`
+    // movie.image = `http://localhost:3000/inception.jpg`
+    movies.forEach((movie) => {
+      if (movie.id === 1) {
+        movie.image = `${process.env.BE_HOST}/inception.jpg`;
+      } else if (movie.id === 2) {
+        movie.image = `${process.env.BE_HOST}/the_godfather.jpg`; // Immagine di default per altri film
+      } else if (movie.id === 3) {
+        movie.image = `${process.env.BE_HOST}/titanic.jpg`; // Immagine di default per altri film
+      } else if (movie.id === 4) {
+        movie.image = `${process.env.BE_HOST}/matrix.jpg`; // Immagine di default per altri film
+      } else if (movie.id === 5) {
+        movie.image = `${process.env.BE_HOST}/interstellar.jpg`; // Immagine di default per altri film
+      } else {
+        movie.image = `http://localhost:3000/logo.jpg`
+      }
+    })
     res.json(movies)
   })
+
 }
+
 
 function show(req, res, next) {
   const { id } = req.params
