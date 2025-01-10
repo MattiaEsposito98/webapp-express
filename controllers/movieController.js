@@ -31,7 +31,13 @@ function show(req, res, next) {
   const { id } = req.params
 
   //query per trovare un film
-  const movieSql = 'SELECT * FROM db_movies.movies WHERE id = ?'
+  const movieSql = `SELECT movies.*, AVG(vote) AS avg_vote 
+		FROM db_movies.movies
+		JOIN db_movies.reviews
+		ON movies.id = reviews.movie_id 
+		WHERE movies.id = ?
+		GROUP BY movies.id
+		`
   connection.query(movieSql, [id], (err, results) => {
     if (err) return next(err) // Interviene middlware errorsHandler per gestire l'errore
     if (results.length === 0) {
