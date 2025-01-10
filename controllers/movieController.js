@@ -1,23 +1,22 @@
 const connection = require('../data/db')
 
 function index(req, res, next) {
-  let sql = 'SELECT * FROM db_movies.movies;'
+  let sql = 'SELECT movies.*, AVG(vote) AS avg_vote FROM db_movies.movies JOIN db_movies.reviews ON movies.id = reviews.movie_id GROUP BY movies.id'
 
   connection.query(sql, (err, movies) => {
     if (err) return next(err) // Interviene middlware errorsHandler per gestire l'errore
-    // movie.image = `${process.env.BE_HOST}/${movie.image}`
-    // movie.image = `http://localhost:3000/inception.jpg`
+
     movies.forEach((movie) => {
       if (movie.id === 1) {
         movie.image = `${process.env.BE_HOST}/inception.jpg`;
       } else if (movie.id === 2) {
-        movie.image = `${process.env.BE_HOST}/the_godfather.jpg`; // Immagine di default per altri film
+        movie.image = `${process.env.BE_HOST}/the_godfather.jpg`
       } else if (movie.id === 3) {
-        movie.image = `${process.env.BE_HOST}/titanic.jpg`; // Immagine di default per altri film
+        movie.image = `${process.env.BE_HOST}/titanic.jpg`
       } else if (movie.id === 4) {
-        movie.image = `${process.env.BE_HOST}/matrix.jpg`; // Immagine di default per altri film
+        movie.image = `${process.env.BE_HOST}/matrix.jpg`
       } else if (movie.id === 5) {
-        movie.image = `${process.env.BE_HOST}/interstellar.jpg`; // Immagine di default per altri film
+        movie.image = `${process.env.BE_HOST}/interstellar.jpg`
       } else {
         movie.image = `http://localhost:3000/logo.jpg`
       }
