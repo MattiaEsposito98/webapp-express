@@ -1,8 +1,12 @@
 const connection = require('../data/db')
 
 function index(req, res, next) {
-  let sql = 'SELECT movies.*, AVG(vote) AS avg_vote FROM db_movies.movies JOIN db_movies.reviews ON movies.id = reviews.movie_id GROUP BY movies.id'
+  let sql = 'SELECT movies.*, AVG(vote) AS avg_vote FROM db_movies.movies JOIN db_movies.reviews ON movies.id = reviews.movie_id '
 
+  if (req.query.search) {
+    sql += ` WHERE title LIKE '%${req.query.search}%' OR director LIKE '%${req.query.search}%' OR genre LIKE '%${req.query.search}%'`
+  }
+  sql += 'GROUP BY movies.id'
   connection.query(sql, (err, movies) => {
     if (err) return next(err) // Interviene middlware errorsHandler per gestire l'errore
 
