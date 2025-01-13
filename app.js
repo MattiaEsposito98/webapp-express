@@ -11,9 +11,8 @@ app.use(
     origin: process.env.CORS_ORIGIN,
   })
 )
-// app.use(cors())
-// app.use(cors({ origin: 'http://localhost:5173' }))
-app.use(express.json())  //Middleware per analizzare il json
+
+app.use(express.json())  //Middleware per analizzare il json-body
 app.use(express.static('pubblic'))
 
 app.get('/', (req, res) => {
