@@ -22,7 +22,7 @@ function index(req, res, next) {
       } else if (movie.id === 5) {
         movie.image = `${process.env.BE_HOST}/interstellar.jpg`
       } else {
-        movie.image = `http://localhost:3000/logo.jpg`
+        movie.image = `${process.env.BE_HOST}/logo.jpg`
       }
     })
     res.json(movies)
@@ -51,7 +51,7 @@ function show(req, res, next) {
 
 
 
-    //query per le reviews
+    //query per le vedere le reviews
     const reviewsSql = `SELECT * FROM db_movies.reviews WHERE movie_id = ?`
     connection.query(reviewsSql, [id], (err, reviewsResults) => {
       if (err) return next(err)
